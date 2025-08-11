@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8" />
+
+    <!-- Viewport & Responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page Title -->
+    <title>SmartCook - Login</title>
+
+    <!-- Description for SEO -->
+    <meta
+      name="description"
+      content="Log in to SmartCook to access personalized recipe suggestions, meal planning tools, and your saved favorites."
+    />
+
+    <!-- Keywords for SEO -->
+    <meta name="keywords" content="recipes, cooking, meal planner, login, SmartCook, food waste reduction" />
+
+    <!-- Author -->
+    <meta name="author" content="Cristhina Chacon" />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#3cb371" />
+
+    <!-- Open Graph (Social Media Preview) -->
+    <meta property="og:title" content="SmartCook - Login" />
+    <meta
+      property="og:description"
+      content="Log in to access your SmartCook recipes, favorites, and weekly meal planner."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yourwebsite.com/login" />
+    <meta property="og:image" content="https://yourwebsite.com/images/preview.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon32.png" />
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/login.css" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="main-container">
+        <div class="login-container">
+          <div class="top-container">
+            <div class="logo-container"> <img src="images/logo.png" alt="robot with a spoon" /></div>
+            <div class="title-container"> <h2>SmartCook</h2></div>
+          </div>
+          <div class="form-container">
+            <h1 class="title">Welcome to <br /><span>SmartCook</span></h1>
+            <p>Sign in to access your SmartCook recipes, favorites, and weekly meal planner.</p>
+            <form action="">
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+                autocomplete="email"
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                title="Please enter a valid email address (e.g., user@example.com)"
+              />
+              <div class="password-container" id="password-container">
+                <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+                minlength="6"
+                autocomplete="current-password"
+              />
+              <ion-icon class="eye-icon" name="eye-off"></ion-icon>
+              
+              </div>
+              <p>Don't have an account? <a href="login.html">Sign In</a></p>
+              <button type="submit" id="btn-signup">Sign Up</button>
+            </form>
+
+            <p class="or">or</p>
+            <button class="google-button" id="google-button" type="button">
+              <ion-icon name="logo-googleplus"></ion-icon> Sign In with Google
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <script type="module" src="js/firebase.js"></script>
+
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/utils.js"></script>
+  </body>
+</html>

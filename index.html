@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character Encoding -->
+  <meta charset="UTF-8">
+
+  <!-- Viewport & Responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Page Title -->
+  <title>SmartCook - Login</title>
+
+  <!-- Description for SEO -->
+  <meta name="description" content="Log in to SmartCook to access personalized recipe suggestions, meal planning tools, and your saved favorites.">
+
+  <!-- Keywords for SEO -->
+  <meta name="keywords" content="recipes, cooking, meal planner, login, SmartCook, food waste reduction">
+
+  <!-- Author -->
+  <meta name="author" content="Cristhina Chacon">
+
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#3cb371">
+
+  <!-- Open Graph (Social Media Preview) -->
+  <meta property="og:title" content="SmartCook - Login">
+  <meta property="og:description" content="Log in to access your SmartCook recipes, favorites, and weekly meal planner.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourwebsite.com/login">
+  <meta property="og:image" content="https://yourwebsite.com/images/preview.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon32.png">
+
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <header class="header">
+    <nav>
+      <div class="logo">
+        <img src="images/logo.png" alt="SmartCook Logo" />
+      <span>SmartCook</span>
+      </div>
+      <div class="menu">
+        <ul>
+        <li><a href="#ingredients">Home</a></li>
+        <li><a href="#top-recipes">Top Recipes</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+      </ul>
+      <div class="account"><a href="login.html"><ion-icon name="person"></ion-icon></a></div>
+      </div>
+    </nav>
+  </header>
+
+  
+  <section id="ingredients" class="ingredients-section">
+    <h2>What’s in your kitchen?</h2>
+    <p>Enter ingredients separated by commas (e.g., rice, eggs, tomato):</p>
+    <input type="text" id="ingredientInput" placeholder="Enter ingredients..." />
+    <button class="btn" onclick="searchRecipes()">Find Recipes</button>
+  </section>
+
+  
+  <section class="top-recipes">
+    <h2>Top Recipes for You</h2>
+    <div class="recipes-container" id="recipesContainer">
+      <!-- Recipe cards from API will be inserted here -->
+    </div>
+  </section>
+
+  
+  <section class="newsletter">
+    <h2>Join Our Newsletter</h2>
+    <p>Get weekly recipe inspiration and cooking tips 📩</p>
+    <form>
+      <input type="email" placeholder="Enter your email" required />
+      <button class="btn">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- ✅ Footer -->
+  <footer>
+        <div class="footer-container">
+          <div class="footer-top">
+            <div class="footer-card especial">
+              <div class="imagen">
+                <img src="images/favicon.png" alt="" />
+              </div>
+              <p>
+                Transforma tu alimentación sin esfuerzo. Personaliza, disfruta,
+                progresa.
+              </p>
+              <div class="social">
+                <a href="#"
+                  ><img src="images/logotipo-de-instagram.png" alt=""
+                /></a>
+                <a href="#"><img src="images/facebook.png" alt="" /></a>
+                <a href="#"><img src="images/social.png" alt="" /></a>
+              </div>
+            </div>
+            <div class="footer-card">
+              <h3>LINKS</h3>
+              <div class="lists">
+                <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Sobre Nosotros</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Contacto</a></li>
+              </ul>
+              <ul>
+                <li><a href="#">Planes</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Recetas</a></li>
+                <li><a href="#">Contacto</a></li>
+              </ul>
+              </div>
+            </div>
+            
+          </div>
+          <div class="footer-bottom">
+            <div class="line"></div>
+            <div class="copy">
+              <p>Creado por Cristhina Chacon</p>
+              <p>2025 Todos los derechos reservados</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>   
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script type="module" src="js/recipes.js"></script>
+</body>
+</html>

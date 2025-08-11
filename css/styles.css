@@ -1,0 +1,335 @@
+:root {
+  --color-secondary-background: #D1E8E2;
+  --color-background: #F5F5F5;
+  --color-accent-light: #FF7A3D;
+   --color-accent-mediun: #F6511D;
+  --color-accent-dark: #C63E12;
+  
+
+  --color-text-dark: #1A1A1A; 
+  --color-lightOverlay: rgba(255, 255, 255, 0.5);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+nav {
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  width: 100%;
+  
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
+.logo span {
+  font-size: 1.7rem;
+  font-weight: bold;
+  font-family: roboto;
+}
+nav img {
+  width: 90px;
+  height: 90px;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-evenly;
+}
+.menu ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  column-gap: 1rem;
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+.menu li {
+  font-size: 1.1rem;
+   margin-right: 1rem;
+}
+.menu li a {
+  text-decoration: none;
+  color: var(--color-text-dark);
+  transition: color 0.3s ease;
+  font-weight: bold;
+}
+.menu li a:hover {
+  color: var(--color-accent-light);
+}
+.account {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+.account ion-icon {
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  color: var(--color-text-dark);
+}
+
+.btn {
+  background-color: var(--color-accent-light);
+  color: var(--color-text-dark);
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ingredients-section,
+.top-recipes,
+.newsletter {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="email"] {
+  padding: 0.5rem;
+  width: 80%;
+  max-width: 400px;
+  margin: 1rem 0;
+  border: 1px solid red;
+  border-radius: 4px;
+}
+
+.recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding: 1rem;
+  text-align: left;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-accent-light);
+}
+.footer-container {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  padding: 40px 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.footer-top {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+.footer-card {
+  width: 250px;
+  height: 250px;
+  background: #fff;
+  padding: 20px;
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer-card h3 {
+  color: var(--main-color);
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.footer-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+.footer-card .imagen {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  
+}
+.footer-card .imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.footer-card .social {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.footer-card .social a {
+  width: 30px;
+  height: 30px;
+}
+.footer-card .social img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+.footer-card h3 {
+  color: var(--color-accent-dark);
+  font-size: 16px;
+  text-align: center;
+}
+
+.especial {
+  text-align: center;
+}
+.footer-card .lists {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.footer-card ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 0;
+}
+.lists li {
+  margin-bottom: 10px;
+}
+.lists li a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.lists li a:hover {
+  color: var(--color-accent-dark);
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.footer-card input {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.footer-card input:focus {
+  outline: none;
+  border-color: var(--color-accent-dark);
+}
+.footer-card .button {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-accent-dark);
+  border-radius: 5px;
+}
+.footer-card .button a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.footer-card .button:hover {
+  background-color: #fcfcfc;
+  
+}
+.button:hover a {
+  color: var(--main-color);
+}
+.footer-bottom {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.line {
+  width: 100%;
+  height: 2px;
+  background: var(--color-accent-dark);
+  margin: 20px 0px;
+}
+.copy {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.copy p {
+  font-size: 14px;
+  color: #666;
+}
