@@ -256,11 +256,9 @@ section {
   padding: 2rem 1rem;
   text-align: center;
   flex-direction: column;
-}
-
-.ingredients-section {
   height: auto;
 }
+
 
 .ingredients-section h2,
 .top-recipes h2,
