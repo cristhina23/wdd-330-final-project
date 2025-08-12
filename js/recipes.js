@@ -3,6 +3,7 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth
 
 const auth = getAuth(app);
 
+
 const ingredientInput = document.getElementById("ingredientInput");
 const ingredientList = document.getElementById("ingredientList");
 const ingredientForm = document.getElementById("ingredientForm");
