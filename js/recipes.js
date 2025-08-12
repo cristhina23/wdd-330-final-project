@@ -1,22 +1,27 @@
+// Elementos del DOM
 const ingredientInput = document.getElementById("ingredientInput");
-const addIngredientBtn = document.getElementById("addIngredient");
 const ingredientList = document.getElementById("ingredientList");
+const ingredientForm = document.getElementById("ingredientForm");
 const getRecipeBtn = document.getElementById("getRecipe");
 
 let ingredients = []; // Guardar todos los ingredientes
 
-// Agregar ingrediente a la lista
-addIngredientBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+// Manejar envío del formulario para agregar ingrediente
+ingredientForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // Evita recarga de página
+
   const ingredient = ingredientInput.value.trim();
 
   if (ingredient) {
-    ingredients.push(ingredient); // Guardar en el array
+    // Guardar en array
+    ingredients.push(ingredient);
 
+    // Crear elemento <li>
     const li = document.createElement("li");
     li.textContent = ingredient;
     ingredientList.appendChild(li);
 
+    // Limpiar input
     ingredientInput.value = "";
     ingredientInput.focus();
   }
@@ -33,12 +38,16 @@ async function getRecipeFromAI(prompt) {
       body: JSON.stringify({ prompt }),
     });
 
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
     const data = await response.json();
-    console.log("AI Response:", data);
     return data;
 
   } catch (error) {
     console.error("Error:", error);
+    return null;
   }
 }
 
@@ -49,15 +58,21 @@ getRecipeBtn.addEventListener("click", () => {
     return;
   }
 
-  const prompt = `Crea una receta deliciosa usando estos ingredientes: ${ingredients.join(", ")}.`;
-  
+  const prompt = `Create a delicious recipe using these ingredients: ${ingredients.join(", ")}. 
+  Include preparation steps and serving suggestions.`;
+
   // Mostrar mensaje de carga
   getRecipeBtn.textContent = "Generating...";
   getRecipeBtn.disabled = true;
 
   getRecipeFromAI(prompt).then(data => {
     console.log("AI Response:", data);
-    alert(data[0]?.generated_text || "No recipe generated.");
+
+    if (Array.isArray(data) && data[0]?.generated_text) {
+      alert(data[0].generated_text);
+    } else {
+      alert("No recipe generated. Please try again.");
+    }
   }).finally(() => {
     getRecipeBtn.textContent = "Get a recipe";
     getRecipeBtn.disabled = false;
