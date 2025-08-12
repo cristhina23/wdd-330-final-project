@@ -19,15 +19,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const recipe = data.meals[0];
+
+    
+    const instructionsText = recipe.strInstructions || "";
+    const steps = instructionsText
+      .split(". ")
+      .filter(step => step.trim() !== "")
+      .map(step => step.trim());
+
     container.innerHTML = `
       <h2>${recipe.strMeal}</h2>
       <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
       <p><span>Category:</span> ${recipe.strCategory}</p>
       <p><span>Area:</span> ${recipe.strArea}</p>
       <h3>Instructions</h3>
-  <ol>
-    ${steps.map(step => `<li>${step.trim()}.</li>`).join("")}
-  </ol>
+      <ol>
+        ${steps.map(step => `<li>${step}.</li>`).join("")}
+      </ol>
     `;
   } catch (error) {
     console.error("Error loading recipe:", error);
