@@ -18,9 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           <img src="${recipe.image}" alt="${recipe.title}" />
           <h3>${recipe.title}</h3>
           <p>⏱ ${recipe.readyInMinutes} min</p>
-          <button class="btn btn-primary" onclick="alert('${recipe.summary.replace(/<[^>]+>/g, '')}')">
-            View Details
-          </button>
+          <a class="btn" href="recipe.html?id=${recipe.id}">
+        View Recipe
+      </a>
         </div>
       `
       )
