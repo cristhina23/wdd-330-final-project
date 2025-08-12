@@ -1,11 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Character Encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Viewport & Responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
+    <!-- Page Title -->
+    <title>SmartCook - Login</title>
+
+    <!-- Description for SEO -->
+    <meta
+      name="description"
+      content="Log in to SmartCook to access personalized recipe suggestions, meal planning tools, and your saved favorites."
+    />
+
+    <!-- Keywords for SEO -->
+    <meta name="keywords" content="recipes, cooking, meal planner, login, SmartCook, food waste reduction" />
+
+    <!-- Author -->
+    <meta name="author" content="Cristhina Chacon" />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#3cb371" />
+
+    <!-- Open Graph (Social Media Preview) -->
+    <meta property="og:title" content="SmartCook - Login" />
+    <meta
+      property="og:description"
+      content="Log in to access your SmartCook recipes, favorites, and weekly meal planner."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yourwebsite.com/login" />
+    <meta property="og:image" content="https://yourwebsite.com/images/preview.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon32.png" />
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/recipe.css" />
+    <link rel="stylesheet" href="css/mobile.css">
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>dashboard</h1>
+    <header class="header">
+      <a href="/index.html" class="logo-link">
+        <div class="logo">
+        <img src="images/logo.png" alt="SmartCook Logo" />
+        <span>SmartCook</span>
+      </div>
+      </a>
+
+      <input type="checkbox" id="lanzador" />
+
+      <label aria-label="open menu" for="lanzador" class="menu-activador">
+        <span class="menu-activador-linea"></span>
+        <span class="menu-activador-linea"></span>
+        <span class="menu-activador-linea"></span>
+      </label>
+
+      <div class="bottom">
+        <nav>
+          <div class="menu">
+            <ul>
+              <li><a href="/index.html" class="menu-active">Home</a></li>
+              <li><a href="#top-recipes">Top Recipes</a></li>
+              <li><a href="#newsletter">Newsletter</a></li>
+            </ul>
+            <div class="account"
+              ><a href="login.html"><ion-icon name="person"></ion-icon></a
+            ></div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+     <main>
+      <div class="user-info">
+      <img id="userPhoto" alt="Profile Photo" />
+      <span id="userName"></span>
+    </div>
+
+   <div class="saved-recipes">
+     <h2>Mis Recetas Guardadas</h2>
+    <div id="savedRecipes"></div>
+   </div>
+  </main>
+
+  
+
+    <!--  Footer -->
+    <footer class="smart-footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="SmartCook Logo" />
+          <p class="tagline">Smart Cooking. Better Eating. Less Waste.</p>
+          <div class="social-icons">
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Top Recipes</a></li>
+            <li><a href="#">Meal Planner</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 SmartCook by Cristhina Chacon. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
   </body>
 </html>

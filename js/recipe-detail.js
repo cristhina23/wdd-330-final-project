@@ -1,8 +1,15 @@
-// js/recipe-detail.js
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+const auth = getAuth();
+const db = getFirestore();
+
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("recipeDetail");
+  const bookmarkIcon = document.querySelector(".bookmark-icon");
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
+  let recipeData = null; // Guardar receta para luego almacenarla
 
   if (!id) {
     container.innerHTML = "<p>Recipe ID is missing.</p>";
@@ -19,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const recipe = data.meals[0];
+    recipeData = recipe;
 
     // Extraer ingredientes y medidas
     let ingredients = [];
@@ -32,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Formatear instrucciones en pasos
     const steps = recipe.strInstructions
-      .split(/\r?\n|\. /) // separa por saltos de línea o puntos seguidos de espacio
+      .split(/\r?\n|\. /)
       .map(step => step.trim())
       .filter(step => step.length > 0);
 
@@ -56,4 +64,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error loading recipe:", error);
     container.innerHTML = "<p>Error loading recipe details.</p>";
   }
+
+  // Manejo del click en el bookmark
+  bookmarkIcon.addEventListener("click", () => {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        // Usuario no logueado → ir a login
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Usuario logueado → guardar en Firestore
+      try {
+        await addDoc(collection(db, "recipes"), {
+          userId: user.uid,
+          title: recipeData.strMeal,
+          image: recipeData.strMealThumb,
+          category: recipeData.strCategory,
+          area: recipeData.strArea,
+          ingredients: ingredients,
+          instructions: recipeData.strInstructions,
+          createdAt: new Date()
+        });
+        console.log("Receta guardada correctamente.");
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        console.error("Error guardando receta:", error);
+      }
+    });
+  });
 });
