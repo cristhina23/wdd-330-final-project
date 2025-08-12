@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       <p><span>Category:</span> ${recipe.strCategory}</p>
       <p><span>Area:</span> ${recipe.strArea}</p>
       <h3>Instructions</h3>
-      <p>${recipe.strInstructions}</p>
+  <ol>
+    ${steps.map(step => `<li>${step.trim()}.</li>`).join("")}
+  </ol>
     `;
   } catch (error) {
     console.error("Error loading recipe:", error);
