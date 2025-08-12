@@ -1,17 +1,97 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+import app from "./firebase.js"; // importa tu configuración
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAS_9sxWGQ9alEBHJBCts3EjdJD-DNSzu4",
-  authDomain: "smartcook-8bd4c.firebaseapp.com",
-  projectId: "smartcook-8bd4c",
-  storageBucket: "smartcook-8bd4c.firebasestorage.app",
-  messagingSenderId: "1075085787983",
-  appId: "1:1075085787983:web:a00470c14d5cf4fbcffb3a",
-  measurementId: "G-22TV9V0E8T"
-};
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById("recipeDetail");
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  let recipeData = null;
+  let ingredients = [];
 
-export default app;
+  if (!id) {
+    container.innerHTML = "<p>Recipe ID is missing.</p>";
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/themealdb-id?id=${id}`);
+    const data = await response.json();
+
+    if (!data.meals || data.meals.length === 0) {
+      container.innerHTML = "<p>Recipe not found.</p>";
+      return;
+    }
+
+    const recipe = data.meals[0];
+    recipeData = recipe;
+
+    // Extraer ingredientes
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = recipe[`strIngredient${i}`];
+      const measure = recipe[`strMeasure${i}`];
+      if (ingredient && ingredient.trim() !== "") {
+        ingredients.push(`${measure ? measure : ""} ${ingredient}`.trim());
+      }
+    }
+
+    // Formatear instrucciones
+    const steps = recipe.strInstructions
+      .split(/\r?\n|\. /)
+      .map(step => step.trim())
+      .filter(step => step.length > 0);
+
+    container.innerHTML = `
+      <h2>${recipe.strMeal}</h2>
+      <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
+      <p><span>Category:</span> ${recipe.strCategory}</p>
+      <p><span>Area:</span> ${recipe.strArea}</p>
+
+      <h3>Ingredients</h3>
+      <ul>
+        ${ingredients.map(item => `<li>${item}</li>`).join("")}
+      </ul>
+
+      <h3>Instructions</h3>
+      <ol>
+        ${steps.map(step => `<li>${step}.</li>`).join("")}
+      </ol>
+    `;
+
+    // Manejador para guardar receta
+    const bookmarkIcon = document.querySelector(".bookmark-icon");
+    if (bookmarkIcon) {
+      bookmarkIcon.addEventListener("click", () => {
+        onAuthStateChanged(auth, async (user) => {
+          if (!user) {
+            window.location.href = "login.html";
+            return;
+          }
+
+          try {
+            await addDoc(collection(db, "recipes"), {
+              userId: user.uid,
+              title: recipeData.strMeal,
+              image: recipeData.strMealThumb,
+              category: recipeData.strCategory,
+              area: recipeData.strArea,
+              ingredients: ingredients,
+              instructions: recipeData.strInstructions,
+              createdAt: new Date()
+            });
+            window.location.href = "dashboard.html";
+          } catch (error) {
+            console.error("Error guardando receta:", error);
+          }
+        });
+      });
+    }
+
+  } catch (error) {
+    console.error("Error loading recipe:", error);
+    container.innerHTML = "<p>Error loading recipe details.</p>";
+  }
+});
