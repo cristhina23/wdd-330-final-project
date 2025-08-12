@@ -441,10 +441,16 @@ input[type="email"] {
 
 
 .top-recipes {
-  padding: 4rem 2rem; /* más espacio para separar de otras secciones */
+  width: 100%;
+  padding: 4rem 2rem;  
+  text-align: center;
+  animation: fadeInUp 0.8s ease-in-out;
+  
 }
 
+
 .recipes-container {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
