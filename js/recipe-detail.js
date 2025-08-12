@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       .filter(step => step.length > 0);
 
     container.innerHTML = `
+      <div class="bookmark-icon" id="bookmark-icon">
+        <ion-icon name="bookmark"></ion-icon>
+      </div>
       <h2>${recipe.strMeal}</h2>
       <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
       <p><span>Category:</span> ${recipe.strCategory}</p>
