@@ -131,13 +131,29 @@
       </section>
 
       <section class="newsletter">
-        <h2>Join Our Newsletter</h2>
-        <p>Get weekly recipe inspiration and cooking tips 📩</p>
-        <form>
-          <input type="email" placeholder="Enter your email" required />
-          <button class="btn">Subscribe</button>
-        </form>
-      </section>
+          <div class="newsletter-container">
+            <div class="newsletter-text">
+              <h3>Newsletter</h3>
+              <h2>Subscribe to our newsletter</h2>
+              <p
+                >Receive exclusive offers, tips, and updates
+                straight to your inbox.</p
+              >
+            </div>
+            <form
+              class="newsletter-form"
+              onsubmit="return validateEmail(event)"
+            >
+              <input
+                type="email"
+                placeholder="Enter your email"
+                required
+              />
+             <button class="button" aria-label="Subscribe to our newsletter">SUSCRIBE</button>
+              <p id="email-error" class="error-message"></p>
+            </form>
+          </div>
+        </section>
     </main>
 
     <!--  Footer -->
