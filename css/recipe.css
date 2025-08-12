@@ -16,10 +16,13 @@
 }
 
 #recipeDetail img {
-  width: 100%;
+  width: 80%;       
+  max-width: 400px; 
   border-radius: 10px;
-  margin-bottom: 1.5rem;
+  margin: 1.5rem auto; 
+  display: block;      
 }
+
 
 #recipeDetail p {
   margin-bottom: 1rem;
