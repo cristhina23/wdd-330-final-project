@@ -14,7 +14,8 @@ main {
   height: auto;     
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* todo hacia la izquierda */
+  align-items: flex-start; 
+  margin: 0 auto;
   
   padding: 2rem;
   background: white;
