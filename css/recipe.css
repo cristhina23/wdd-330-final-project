@@ -64,6 +64,7 @@ main {
 #recipeDetail ul {
   list-style: disc;
   padding-left: 1.5rem;
+  margin-left: 2rem;
 }
 
 #recipeDetail ul li {
@@ -73,6 +74,7 @@ main {
 #recipeDetail ol {
   padding-left: 1.5rem;
   line-height: 1.6;
+  margin-left: 2rem;
 }
 
 #recipeDetail ol li {
