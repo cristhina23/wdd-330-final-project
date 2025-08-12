@@ -67,7 +67,7 @@
         <nav>
           <div class="menu">
             <ul>
-              <li><a href="#ingredients">Home</a></li>
+              <li><a href="#ingredients" class="menu-active">Home</a></li>
               <li><a href="#top-recipes">Top Recipes</a></li>
               <li><a href="#newsletter">Newsletter</a></li>
             </ul>
@@ -99,7 +99,12 @@
         <h2>What’s in your kitchen?</h2>
         <p>Enter ingredients separated by commas (e.g., rice, eggs, tomato):</p>
         <input type="text" id="ingredientInput" placeholder="Enter ingredients..." />
-        <button class="btn" onclick="searchRecipes()">Find Recipes</button>
+        <button class="btn" id="findRecipes">Find Recipes</button>
+        <div class="ingredients-list" id="ingredientsListContainer">
+          <h2>Ingredients on Hand</h2>
+          <!-- Ingredients will be displayed here -->
+           <ul id="ingredientList"></ul>
+        </div>
       </section>
 
       <section class="top-recipes">
@@ -126,9 +131,10 @@
       <img src="images/logo.png" alt="SmartCook Logo" />
       <p class="tagline">Smart Cooking. Better Eating. Less Waste.</p>
       <div class="social-icons">
-        <a href="#"><img src="images/logotipo-de-instagram.png" alt="Instagram" /></a>
-        <a href="#"><img src="images/facebook.png" alt="Facebook" /></a>
-        <a href="#"><img src="images/social.png" alt="Twitter" /></a>
+        <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+        <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+        <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+        <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
       </div>
     </div>
 

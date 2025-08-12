@@ -84,6 +84,8 @@ nav {
 .menu li {
   font-size: 1.1rem;
    margin-right: 1rem;
+   transition: all 0.5s ease;
+   padding: 0.5rem;
 }
 .menu li a {
   text-decoration: none;
@@ -93,6 +95,16 @@ nav {
 }
 .menu li a:hover {
   color: var(--color-accent-light);
+  
+}
+.menu li:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.menu-active {
+  color: var(--color-accent-light) !important;
+  border-bottom: 2px solid var(--color-accent-light);
 }
 .account {
   padding: 1rem;
@@ -240,6 +252,10 @@ section {
   flex-direction: column;
 }
 
+.ingredients-section {
+  height: auto;
+}
+
 .ingredients-section h2,
 .top-recipes h2,
 .newsletter h2 {
@@ -348,6 +364,44 @@ input[type="email"] {
     transform: translateY(0);
   }
 }
+
+.ingredients-list {
+  width: 100%;
+  margin-top: 3rem;
+  text-align: left;
+  animation: fadeInUp 0.8s ease-in-out;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  padding-left: 4rem;
+}
+
+#ingredientList li {
+  
+  font-size: 1.2rem;
+  color: var(--color-text-dark);
+  padding: 0.3rem;
+  
+  
+
+  
+}
+#ingredientList li::marker {
+  color: var(--color-accent-mediun); 
+  font-size: 1.2em; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .smart-footer {
   background: #1A1A1A;
