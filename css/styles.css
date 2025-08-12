@@ -459,8 +459,28 @@ input[type="email"] {
 }
 
 
+.recipe-card button {
+    padding: 0.85rem 2.2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(246, 81, 29, 0.3);
+  background: var(--color-accent-mediun);
+  color: #fff;
+  
+}
 
-
+.recipe-card button:hover {
+  background: var(--color-accent-dark);
+  box-shadow: 0 8px 30px rgba(198, 62, 18, 0.7);
+  transform: scale(1.05);
+}
 
 
 
