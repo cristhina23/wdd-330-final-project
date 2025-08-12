@@ -450,6 +450,7 @@ input[type="email"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .recipe-card h3 {
@@ -458,7 +459,9 @@ input[type="email"] {
   margin-bottom: 1rem;
 }
 
-
+.recipe-card button {
+  padding: 1rem ;
+}
 
 
 
