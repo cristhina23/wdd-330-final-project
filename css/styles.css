@@ -505,17 +505,17 @@ input[type="email"] {
 }
 .newsletter-text h3 {
   font-size: 1.5rem;
-  color: var(--secundary-color);
+  color: var(--color-accent-mediun);
 }
 .newsletter-text h2 {
   font-size: 2.5rem;
   margin: 0.5rem 0;
-  color: var(--text-white);
+  color: var(--color-background);
 }
 .newsletter-text p {
   font-family: 'Cabin', sans-serif;
   font-size: 1.1rem;
-  color: var(--text-white);
+  color: var(--color-background);
 }
 .newsletter-form {
   display: flex;
