@@ -457,7 +457,6 @@ input[type="email"] {
   margin-top: 2rem;
 }
 
-/* Para pantallas grandes: exactamente 3 por fila */
 @media (min-width: 1024px) {
   .recipes-container {
     grid-template-columns: repeat(3, 1fr);
@@ -469,7 +468,7 @@ input[type="email"] {
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   overflow: hidden;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: left;
   display: flex;
   flex-direction: column;
