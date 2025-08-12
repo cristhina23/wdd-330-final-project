@@ -1,37 +1,34 @@
+// js/recipe-detail.js
 document.addEventListener("DOMContentLoaded", async () => {
-  const recipeSection = document.getElementById("recipeDetail");
+  const container = document.getElementById("recipeDetail");
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
   if (!id) {
-    recipeSection.innerHTML = "<p>No recipe selected.</p>";
+    container.innerHTML = "<p>Recipe ID is missing.</p>";
     return;
   }
 
   try {
-    const res = await fetch(`/api/spoonacular-id?id=${id}`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const recipe = await res.json();
+    const response = await fetch(`/api/themealdb-id?id=${id}`);
+    const data = await response.json();
 
-    recipeSection.innerHTML = `
-      <article class="recipe-detail-card">
-        <h1>${recipe.title}</h1>
-        <img src="${recipe.image}" alt="${recipe.title}" class="recipe-detail-image" />
-        <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
-        <p><strong>Servings:</strong> ${recipe.servings}</p>
-        <div class="recipe-summary">${recipe.summary}</div>
-        <h2>Ingredients</h2>
-        <ul>
-          ${recipe.extendedIngredients
-            .map(ing => `<li>${ing.original}</li>`)
-            .join("")}
-        </ul>
-        <h2>Instructions</h2>
-        <div>${recipe.instructions || "<p>No instructions provided.</p>"}</div>
-      </article>
+    if (!data.meals || data.meals.length === 0) {
+      container.innerHTML = "<p>Recipe not found.</p>";
+      return;
+    }
+
+    const recipe = data.meals[0];
+    container.innerHTML = `
+      <h2>${recipe.strMeal}</h2>
+      <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
+      <p><strong>Category:</strong> ${recipe.strCategory}</p>
+      <p><strong>Area:</strong> ${recipe.strArea}</p>
+      <h3>Instructions</h3>
+      <p>${recipe.strInstructions}</p>
     `;
   } catch (error) {
-    console.error("Error fetching recipe:", error);
-    recipeSection.innerHTML = "<p>Failed to load recipe details.</p>";
+    console.error("Error loading recipe:", error);
+    container.innerHTML = "<p>Error loading recipe details.</p>";
   }
 });

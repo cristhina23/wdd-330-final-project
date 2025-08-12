@@ -1,13 +1,13 @@
-// top-recipes.js
+// js/recipes-popular.js
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("recipesContainer");
 
   try {
-    const response = await fetch("/api/spoonacular");
+    const response = await fetch("/api/themealdb");
     const data = await response.json();
 
     if (!data.recipes || data.recipes.length === 0) {
-      container.innerHTML = "<p>No popular recipes found.</p>";
+      container.innerHTML = "<p>No recipes found.</p>";
       return;
     }
 
@@ -15,12 +15,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       .map(
         (recipe) => `
         <div class="recipe-card">
-          <img src="${recipe.image}" alt="${recipe.title}" />
-          <h3>${recipe.title}</h3>
-          <p>⏱ ${recipe.readyInMinutes} min</p>
-          <a class="btn btn-primary" href="recipe.html?id=${recipe.id}">
-        View Recipe
-      </a>
+          <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
+          <h3>${recipe.strMeal}</h3>
+          <p>📍 ${recipe.strArea} | 🍽 ${recipe.strCategory}</p>
+          <a class="btn btn-primary" href="recipe.html?id=${recipe.idMeal}">View Recipe</a>
         </div>
       `
       )
