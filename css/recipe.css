@@ -29,7 +29,7 @@ main {
 #recipeDetail p,
 #recipeDetail ul,
 #recipeDetail ol {
-  padding-left: 4rem;
+  padding-left: 2rem;
   margin-left: 0;
   text-align: left;
 }
