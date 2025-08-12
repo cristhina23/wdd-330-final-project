@@ -14,13 +14,25 @@ main {
   height: auto;     
   display: flex;
   flex-direction: column;
-  margin: 2rem auto;
+  align-items: flex-start; /* todo hacia la izquierda */
+  
   padding: 2rem;
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   overflow: visible; 
 }
+
+#recipeDetail h2,
+#recipeDetail h3,
+#recipeDetail p,
+#recipeDetail ul,
+#recipeDetail ol {
+  padding-left: 2rem; /* margen interno a la izquierda */
+  margin-left: 0;
+  text-align: left;
+}
+
 
 #recipeDetail img {
   width: 80%;       
@@ -64,4 +76,10 @@ main {
 
 #recipeDetail ol li {
   margin-bottom: 1rem;
+}
+
+#recipeDetail ul li::marker,
+#recipeDetail ol li::marker {
+  color: var(--color-accent-mediun);
+  font-weight: bold;
 }
