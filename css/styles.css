@@ -258,7 +258,7 @@ section {
 .ingredients-section,
 .top-recipes,
 .newsletter {
-  padding: 2rem 1rem;
+  padding: 2rem ;
   text-align: center;
   flex-direction: column;
   height: auto;
@@ -524,6 +524,7 @@ input[type="email"] {
   justify-content: center;
 }
 .newsletter-form input[type='email'] {
+  width: 100%;
   padding: 1rem;
   border-radius: 8px;
   border: none;
