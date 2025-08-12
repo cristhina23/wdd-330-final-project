@@ -8,7 +8,7 @@ let ingredients = []; // Guardar todos los ingredientes
 
 // Manejar envío del formulario para agregar ingrediente
 ingredientForm.addEventListener("submit", (e) => {
-  e.preventDefault(); 
+  e.preventDefault();
   const ingredient = ingredientInput.value.trim();
 
   if (ingredient) {
@@ -52,8 +52,8 @@ async function getRecipeFromAI(ingredients) {
 
 // Botón para generar la receta
 getRecipeBtn.addEventListener("click", () => {
-  if (ingredients.length === 0) {
-    alert("Please add at least one ingredient!");
+  if (ingredients.length < 3) { // ← mínimo 3 ingredientes
+    alert("Please add at least 3 ingredients before generating a recipe!");
     return;
   }
 

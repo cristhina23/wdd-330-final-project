@@ -10,10 +10,9 @@ export default async function handler(req, res) {
   }
 
   // Construir prompt amigable para la IA
- const prompt = `Create a delicious, detailed recipe using these main ingredients: ${ingredients.join(", ")}. 
+  const prompt = `Create a delicious, detailed recipe using these main ingredients: ${ingredients.join(", ")}. 
 You may add additional ingredients if necessary to improve flavor, texture, and presentation. 
 Include the recipe title, preparation steps, nutritional information, and cooking time.`;
-
 
   try {
     const response = await fetch(
