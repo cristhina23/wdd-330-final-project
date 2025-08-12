@@ -1,4 +1,8 @@
-// Elementos del DOM
+import app from "./firebase.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+const auth = getAuth(app);
+
 const ingredientInput = document.getElementById("ingredientInput");
 const ingredientList = document.getElementById("ingredientList");
 const ingredientForm = document.getElementById("ingredientForm");
