@@ -97,13 +97,27 @@
 
       <section id="ingredients" class="ingredients-section">
         <h2>What’s in your kitchen?</h2>
-        <p>Enter ingredients separated by commas (e.g., rice, eggs, tomato):</p>
-        <input type="text" id="ingredientInput" placeholder="Enter ingredients..." />
-        <button class="btn" id="findRecipes">Find Recipes</button>
+        <p>Enter one ingredient at a time (e.g., rice):</p>
+
+        <form action="" id="ingredientForm">
+          <input type="text" id="ingredientInput" placeholder="Enter ingredient..." />
+          <button class="btn" id="addIngredient">+ Add ingredient</button>
+        </form>
         <div class="ingredients-list" id="ingredientsListContainer">
-          <h2>Ingredients on Hand</h2>
-          <!-- Ingredients will be displayed here -->
-           <ul id="ingredientList"></ul>
+          <div class="ingredients-list-container">
+            <h3>Ingredients on Hand:</h3>
+          <ul id="ingredientList"></ul>
+          </div>
+
+          <div class="recipe-box">
+            <div class="recipe-box-text">
+              <h4>Ready for a recipe?</h4>
+              <p>Generate a recipe based on your ingredients</p>
+            </div>
+            <div class="recipe-box-button">
+              <button id="getRecipe" class=" btn-secondary">Get a recipe</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -126,35 +140,34 @@
 
     <!--  Footer -->
     <footer class="smart-footer">
-  <div class="footer-content">
-    <div class="footer-brand">
-      <img src="images/logo.png" alt="SmartCook Logo" />
-      <p class="tagline">Smart Cooking. Better Eating. Less Waste.</p>
-      <div class="social-icons">
-        <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-        <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-        <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-        <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="SmartCook Logo" />
+          <p class="tagline">Smart Cooking. Better Eating. Less Waste.</p>
+          <div class="social-icons">
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Top Recipes</a></li>
+            <li><a href="#">Meal Planner</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div class="footer-links">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Top Recipes</a></li>
-        <li><a href="#">Meal Planner</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2025 SmartCook by Cristhina Chacon. All rights reserved.</p>
-  </div>
-</footer>
-
+      <div class="footer-bottom">
+        <p>© 2025 SmartCook by Cristhina Chacon. All rights reserved.</p>
+      </div>
+    </footer>
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>

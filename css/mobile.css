@@ -141,8 +141,22 @@
   padding: 0.8rem 1rem;
   font-size: 1rem;
  }
- #ingredientList li {
+
+ #ingredientForm  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+ .ingredients-list {
+  padding: 1rem;
   
  }
-
-}
+ .recipe-box {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+ }
+ .recipe-box-button button {
+  padding: 1rem;
+ }
+ }

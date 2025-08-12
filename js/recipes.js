@@ -1,29 +1,65 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const ingredientInput = document.getElementById("ingredientInput");
-    const findRecipesBtn = document.getElementById("findRecipes");
-    const ingredientList = document.getElementById("ingredientList");
+const ingredientInput = document.getElementById("ingredientInput");
+const addIngredientBtn = document.getElementById("addIngredient");
+const ingredientList = document.getElementById("ingredientList");
+const getRecipeBtn = document.getElementById("getRecipe");
 
-    findRecipesBtn.addEventListener("click", function () {
-        const inputText = ingredientInput.value.trim();
+let ingredients = []; // Guardar todos los ingredientes
 
-        if (inputText !== "") {
-           
-            const ingredients = inputText.split(",").map(item => item.trim());
+// Agregar ingrediente a la lista
+addIngredientBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const ingredient = ingredientInput.value.trim();
 
-           
-            ingredientList.innerHTML = "";
+  if (ingredient) {
+    ingredients.push(ingredient); // Guardar en el array
 
-            
-            ingredients.forEach(ingredient => {
-                const li = document.createElement("li");
-                li.textContent = ingredient;
-                ingredientList.appendChild(li);
-            });
+    const li = document.createElement("li");
+    li.textContent = ingredient;
+    ingredientList.appendChild(li);
 
-           
-            ingredientInput.value = "";
-        } else {
-            alert("please enter at least three ingredient");
-        }
+    ingredientInput.value = "";
+    ingredientInput.focus();
+  }
+});
+
+// Función para llamar a la API de Hugging Face
+async function getRecipeFromAI(prompt) {
+  try {
+    const response = await fetch("/api/huggingface", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
     });
+
+    const data = await response.json();
+    console.log("AI Response:", data);
+    return data;
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+// Botón para generar la receta
+getRecipeBtn.addEventListener("click", () => {
+  if (ingredients.length === 0) {
+    alert("Please add at least one ingredient!");
+    return;
+  }
+
+  const prompt = `Crea una receta deliciosa usando estos ingredientes: ${ingredients.join(", ")}.`;
+  
+  // Mostrar mensaje de carga
+  getRecipeBtn.textContent = "Generating...";
+  getRecipeBtn.disabled = true;
+
+  getRecipeFromAI(prompt).then(data => {
+    console.log("AI Response:", data);
+    alert(data[0]?.generated_text || "No recipe generated.");
+  }).finally(() => {
+    getRecipeBtn.textContent = "Get a recipe";
+    getRecipeBtn.disabled = false;
+  });
 });
