@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <img src="${recipe.image}" alt="${recipe.title}" />
           <h3>${recipe.title}</h3>
           <p>⏱ ${recipe.readyInMinutes} min</p>
-          <a class="btn" href="recipe.html?id=${recipe.id}">
+          <a class="btn btn-primary" href="recipe.html?id=${recipe.id}">
         View Recipe
       </a>
         </div>
