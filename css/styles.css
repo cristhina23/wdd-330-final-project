@@ -37,7 +37,12 @@ header {
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
 }
-
+.logo-link {
+  text-decoration: none;
+  color: var(--color-text-dark);
+  display: flex;
+  align-items: center;
+}
 .bottom {
   width: 70%;
   

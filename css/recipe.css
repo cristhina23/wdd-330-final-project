@@ -28,7 +28,7 @@ main {
 #recipeDetail p,
 #recipeDetail ul,
 #recipeDetail ol {
-  padding-left: 2rem; /* margen interno a la izquierda */
+  padding-left: 4rem;
   margin-left: 0;
   text-align: left;
 }
@@ -82,4 +82,24 @@ main {
 #recipeDetail ol li::marker {
   color: var(--color-accent-mediun);
   font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  #recipeDetail {
+    padding: 1rem;
+  }
+  #recipeDetail h2,
+  #recipeDetail h3,
+  #recipeDetail p,
+  #recipeDetail ul,
+  #recipeDetail ol {
+    padding-left: 2rem;
+  }
+
+  #recipeDetail img {
+   width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 1rem 0;    
+}
 }
