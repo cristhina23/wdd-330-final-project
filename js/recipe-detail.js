@@ -20,18 +20,33 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const recipe = data.meals[0];
 
-    
-    const instructionsText = recipe.strInstructions || "";
-    const steps = instructionsText
-      .split(". ")
-      .filter(step => step.trim() !== "")
-      .map(step => step.trim());
+    // Extraer ingredientes y medidas
+    let ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = recipe[`strIngredient${i}`];
+      const measure = recipe[`strMeasure${i}`];
+      if (ingredient && ingredient.trim() !== "") {
+        ingredients.push(`${measure ? measure : ""} ${ingredient}`.trim());
+      }
+    }
+
+    // Formatear instrucciones en pasos
+    const steps = recipe.strInstructions
+      .split(/\r?\n|\. /) // separa por saltos de línea o puntos seguidos de espacio
+      .map(step => step.trim())
+      .filter(step => step.length > 0);
 
     container.innerHTML = `
       <h2>${recipe.strMeal}</h2>
       <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
       <p><span>Category:</span> ${recipe.strCategory}</p>
       <p><span>Area:</span> ${recipe.strArea}</p>
+
+      <h3>Ingredients</h3>
+      <ul>
+        ${ingredients.map(item => `<li>${item}</li>`).join("")}
+      </ul>
+
       <h3>Instructions</h3>
       <ol>
         ${steps.map(step => `<li>${step}.</li>`).join("")}
