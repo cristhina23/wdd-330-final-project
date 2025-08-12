@@ -8,8 +8,7 @@ let ingredients = []; // Guardar todos los ingredientes
 
 // Manejar envío del formulario para agregar ingrediente
 ingredientForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Evita recarga de página
-
+  e.preventDefault(); 
   const ingredient = ingredientInput.value.trim();
 
   if (ingredient) {
@@ -28,14 +27,14 @@ ingredientForm.addEventListener("submit", (e) => {
 });
 
 // Función para llamar a la API de Hugging Face
-async function getRecipeFromAI(prompt) {
+async function getRecipeFromAI(ingredients) {
   try {
     const response = await fetch("/api/huggingface", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ ingredients }), // Enviamos el array directamente
     });
 
     if (!response.ok) {
@@ -58,14 +57,11 @@ getRecipeBtn.addEventListener("click", () => {
     return;
   }
 
-  const prompt = `Create a delicious recipe using these ingredients: ${ingredients.join(", ")}. 
-  Include preparation steps and serving suggestions.`;
-
   // Mostrar mensaje de carga
   getRecipeBtn.textContent = "Generating...";
   getRecipeBtn.disabled = true;
 
-  getRecipeFromAI(prompt).then(data => {
+  getRecipeFromAI(ingredients).then(data => {
     console.log("AI Response:", data);
 
     if (Array.isArray(data) && data[0]?.generated_text) {

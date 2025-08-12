@@ -10,7 +10,10 @@ export default async function handler(req, res) {
   }
 
   // Construir prompt amigable para la IA
-  const prompt = `Create a delicious, detailed recipe using only these ingredients: ${ingredients.join(", ")}. Include the title, preparation steps, nutritional information, and cooking time.`;
+ const prompt = `Create a delicious, detailed recipe using these main ingredients: ${ingredients.join(", ")}. 
+You may add additional ingredients if necessary to improve flavor, texture, and presentation. 
+Include the recipe title, preparation steps, nutritional information, and cooking time.`;
+
 
   try {
     const response = await fetch(
@@ -18,7 +21,7 @@ export default async function handler(req, res) {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.HF_TOKEN}`,
+          "Authorization": `Bearer ${process.env.HF_TOKEN}`, // Usa tu token seguro en .env
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ inputs: prompt }),
