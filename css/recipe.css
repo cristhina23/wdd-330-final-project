@@ -30,6 +30,7 @@ main {
   font-size: 24px;
   color: var(--color-accent-mediun);
   cursor: pointer;
+  z-index: 9999999;
 }
 
 #recipeDetail h2,
