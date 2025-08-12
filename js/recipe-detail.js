@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.innerHTML = `
       <h2>${recipe.strMeal}</h2>
       <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
-      <p><strong>Category:</strong> ${recipe.strCategory}</p>
-      <p><strong>Area:</strong> ${recipe.strArea}</p>
+      <p><span>Category:</span> ${recipe.strCategory}</p>
+      <p><span>Area:</span> ${recipe.strArea}</p>
       <h3>Instructions</h3>
       <p>${recipe.strInstructions}</p>
     `;

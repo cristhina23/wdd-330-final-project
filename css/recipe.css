@@ -17,12 +17,22 @@
 
 #recipeDetail img {
   width: 80%;       
-  max-width: 400px; 
+  max-width: 600px; 
   border-radius: 10px;
   margin: 1.5rem auto; 
   display: block;      
 }
 
+#recipeDetail h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-text-dark, #333);
+}
+
+#recipeDetail span {
+  font-weight: bold;
+  color: var(--color-accent-mediun);
+}
 
 #recipeDetail p {
   margin-bottom: 1rem;
