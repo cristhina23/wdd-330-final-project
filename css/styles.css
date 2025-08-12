@@ -475,6 +475,20 @@ input[type="email"] {
   justify-content: space-between;
 }
 
+.recipe-card h3 {
+  color: var(--color-text-dark);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+
+.recipe-card button {
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  background-color: #C63E12;
+}
+
 
 
 
