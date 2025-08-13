@@ -32,11 +32,12 @@ onAuthStateChanged(auth, async (user) => {
           <img src="${recipe.image}" alt="${recipe.title}" />
           <h3>${recipe.title}</h3>
           <p>${recipe.category} - ${recipe.area}</p>
+          <a class="btn btn-primary" href="recipe.html?id=${recipe.id}">View Recipe</a>
         </div>
       `;
     });
   } else {
-    // Si no está logueado, enviarlo al login
+    
     window.location.href = "login.html";
   }
 });
