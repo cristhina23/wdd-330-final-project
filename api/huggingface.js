@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Only POST requests allowed" });
@@ -11,18 +9,15 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Ingredients are required" });
   }
 
-  // Construir prompt amigable para la IA
-  const prompt = `Create a delicious, detailed recipe using these main ingredients: ${ingredients.join(", ")}. 
-You may add additional ingredients if necessary to improve flavor, texture, and presentation. 
-Include the recipe title, preparation steps, nutritional information, and cooking time.`;
+  const prompt = `Create a detailed recipe using these ingredients: ${ingredients.join(", ")}. Include title, steps, nutrition, cooking time.`;
 
   try {
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/gpt2",
+      "https://api-inference.huggingface.co/models/gpt2",  // Modelo elegido
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.HF_TOKEN}`, // Usa tu token seguro en .env
+          "Authorization": `Bearer ${process.env.HF_TOKEN}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ inputs: prompt }),
@@ -30,14 +25,17 @@ Include the recipe title, preparation steps, nutritional information, and cookin
     );
 
     if (!response.ok) {
-      throw new Error(`Hugging Face API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error("Hugging Face API error:", response.status, errorText);
+      return res.status(response.status).json({ error: errorText });
     }
 
     const data = await response.json();
+    console.log("Hugging Face API data:", data);
     res.status(200).json(data);
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    console.error("Fetch to Hugging Face failed:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
