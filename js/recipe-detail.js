@@ -7,10 +7,10 @@ const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("recipeDetail");
-  const bookmarkIcon = document.querySelector(".bookmark-icon");
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   let recipeData = null; // Guardar receta para luego almacenarla
+  let ingredients = [];  // Declarar aquí para usar después
 
   if (!id) {
     container.innerHTML = "<p>Recipe ID is missing.</p>";
@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     recipeData = recipe;
 
     // Extraer ingredientes y medidas
-    let ingredients = [];
     for (let i = 1; i <= 20; i++) {
       const ingredient = recipe[`strIngredient${i}`];
       const measure = recipe[`strMeasure${i}`];
@@ -64,37 +63,39 @@ document.addEventListener("DOMContentLoaded", async () => {
         ${steps.map(step => `<li>${step}.</li>`).join("")}
       </ol>
     `;
+
+    // Ahora que el HTML está en el DOM, seleccionamos el ícono
+    const bookmarkIcon = document.querySelector(".bookmark-icon");
+    bookmarkIcon.addEventListener("click", () => {
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          // Usuario no logueado → ir a login
+          window.location.href = "login.html";
+          return;
+        }
+
+        // Usuario logueado → guardar en Firestore
+        try {
+          await addDoc(collection(db, "recipes"), {
+            userId: user.uid,
+            title: recipeData.strMeal,
+            image: recipeData.strMealThumb,
+            category: recipeData.strCategory,
+            area: recipeData.strArea,
+            ingredients: ingredients,
+            instructions: recipeData.strInstructions,
+            createdAt: new Date()
+          });
+          console.log("Receta guardada correctamente.");
+          window.location.href = "dashboard.html";
+        } catch (error) {
+          console.error("Error guardando receta:", error);
+        }
+      });
+    });
+
   } catch (error) {
     console.error("Error loading recipe:", error);
     container.innerHTML = "<p>Error loading recipe details.</p>";
   }
-
-  // Manejo del click en el bookmark
-  bookmarkIcon.addEventListener("click", () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        // Usuario no logueado → ir a login
-        window.location.href = "login.html";
-        return;
-      }
-
-      // Usuario logueado → guardar en Firestore
-      try {
-        await addDoc(collection(db, "recipes"), {
-          userId: user.uid,
-          title: recipeData.strMeal,
-          image: recipeData.strMealThumb,
-          category: recipeData.strCategory,
-          area: recipeData.strArea,
-          ingredients: ingredients,
-          instructions: recipeData.strInstructions,
-          createdAt: new Date()
-        });
-        console.log("Receta guardada correctamente.");
-        window.location.href = "dashboard.html";
-      } catch (error) {
-        console.error("Error guardando receta:", error);
-      }
-    });
-  });
 });
