@@ -8,7 +8,7 @@ const ingredientList = document.getElementById("ingredientList");
 const ingredientForm = document.getElementById("ingredientForm");
 const getRecipeBtn = document.getElementById("getRecipe");
 
-let ingredients = []; // Guardar todos los ingredientes
+let ingredients = [];
 
 // Manejar envío del formulario para agregar ingrediente
 ingredientForm.addEventListener("submit", (e) => {
@@ -30,7 +30,7 @@ ingredientForm.addEventListener("submit", (e) => {
 // Función para llamar a la API AI21 Studio
 async function getRecipeFromAI(ingredients) {
   try {
-    const response = await fetch("/api/ai21", {
+    const response = await fetch(`${window.location.origin}/api/ai21`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ingredients }),
@@ -48,7 +48,7 @@ async function getRecipeFromAI(ingredients) {
 }
 
 // Evento para generar receta
-getRecipeBtn.addEventListener("click", (e) => {
+getRecipeBtn.addEventListener("click", async (e) => {
   e.preventDefault();
 
   if (ingredients.length < 3) {
@@ -59,22 +59,20 @@ getRecipeBtn.addEventListener("click", (e) => {
   getRecipeBtn.textContent = "Generating...";
   getRecipeBtn.disabled = true;
 
-  getRecipeFromAI(ingredients)
-    .then(data => {
-      console.log("AI Response:", data);
+  try {
+    const data = await getRecipeFromAI(ingredients);
+    console.log("AI Response:", data);
 
-      if (data?.generated_text) {
-        alert(data.generated_text);
-      } else {
-        alert("No recipe generated. Please try again.");
-      }
-    })
-    .catch(error => {
-      console.error("Error generating recipe:", error);
-      alert("Error generating recipe. Try again later.");
-    })
-    .finally(() => {
-      getRecipeBtn.textContent = "Get a recipe";
-      getRecipeBtn.disabled = false;
-    });
+    if (data?.completions?.[0]?.data?.text) {
+      alert(data.completions[0].data.text);
+    } else {
+      alert("No recipe generated. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error generating recipe:", error);
+    alert("Error generating recipe. Try again later.");
+  } finally {
+    getRecipeBtn.textContent = "Get a recipe";
+    getRecipeBtn.disabled = false;
+  }
 });
