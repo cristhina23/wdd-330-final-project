@@ -69,23 +69,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     bookmarkIcon.addEventListener("click", () => {
       onAuthStateChanged(auth, async (user) => {
         if (!user) {
-          // Usuario no logueado → ir a login
           window.location.href = "login.html";
           return;
         }
 
-        // Usuario logueado → guardar en Firestore
         try {
-          await addDoc(collection(db, "recipes"), {
+          const docData = {
             userId: user.uid,
-            title: recipeData.strMeal,
-            image: recipeData.strMealThumb,
-            category: recipeData.strCategory,
-            area: recipeData.strArea,
-            ingredients: ingredients,
-            instructions: recipeData.strInstructions,
+            title: recipeData.strMeal || null,
+            image: recipeData.strMealThumb || null,
+            category: recipeData.strCategory || null,
+            area: recipeData.strArea || null,
+            ingredients: ingredients.length ? ingredients : null,
+            instructions: recipeData.strInstructions || null,
             createdAt: new Date()
-          });
+          };
+          console.log("Datos a guardar en Firestore:", docData);
+
+          await addDoc(collection(db, "recipes"), docData);
           console.log("Receta guardada correctamente.");
           window.location.href = "dashboard.html";
         } catch (error) {
