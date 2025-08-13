@@ -3,7 +3,6 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth
 
 const auth = getAuth(app);
 
-
 const ingredientInput = document.getElementById("ingredientInput");
 const ingredientList = document.getElementById("ingredientList");
 const ingredientForm = document.getElementById("ingredientForm");
@@ -17,34 +16,27 @@ ingredientForm.addEventListener("submit", (e) => {
   const ingredient = ingredientInput.value.trim();
 
   if (ingredient) {
-    // Guardar en array
     ingredients.push(ingredient);
 
-    // Crear elemento <li>
     const li = document.createElement("li");
     li.textContent = ingredient;
     ingredientList.appendChild(li);
 
-    // Limpiar input
     ingredientInput.value = "";
     ingredientInput.focus();
   }
 });
 
-// Función para llamar a la API de Hugging Face
+// Función para llamar a la API AI21 Studio
 async function getRecipeFromAI(ingredients) {
   try {
-    const response = await fetch("/api/huggingface", {
+    const response = await fetch("/api/ai21", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ingredients }), // Enviamos el array directamente
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ingredients }),
     });
 
-    if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
     const data = await response.json();
     return data;
@@ -55,9 +47,9 @@ async function getRecipeFromAI(ingredients) {
   }
 }
 
-// Botón para generar la receta
+// Evento para generar receta
 getRecipeBtn.addEventListener("click", (e) => {
-  e.preventDefault(); // Esto previene submit o recarga en caso de error
+  e.preventDefault();
 
   if (ingredients.length < 3) {
     alert("Please add at least 3 ingredients before generating a recipe!");
@@ -71,8 +63,8 @@ getRecipeBtn.addEventListener("click", (e) => {
     .then(data => {
       console.log("AI Response:", data);
 
-      if (Array.isArray(data) && data[0]?.generated_text) {
-        alert(data[0].generated_text);
+      if (data?.generated_text) {
+        alert(data.generated_text);
       } else {
         alert("No recipe generated. Please try again.");
       }
@@ -86,5 +78,3 @@ getRecipeBtn.addEventListener("click", (e) => {
       getRecipeBtn.disabled = false;
     });
 });
-
-
