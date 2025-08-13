@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Only POST requests allowed" });
   }
-
+  console.log("HF_TOKEN:", process.env.HF_TOKEN);
   const { ingredients } = req.body;
 
   if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
@@ -22,6 +22,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({ inputs: prompt }),
       }
+       
     );
 
     if (!response.ok) {
