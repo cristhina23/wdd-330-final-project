@@ -11,11 +11,11 @@ const savedRecipesContainer = document.getElementById("savedRecipes");
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    // Foto y nombre
+    
     userPhoto.src = user.photoURL || "images/default-avatar.png";
     userName.textContent = user.displayName || "Usuario";
 
-    // Cargar recetas guardadas del usuario
+    
     const q = query(collection(db, "recipes"), where("userId", "==", user.uid));
     const querySnapshot = await getDocs(q);
 
