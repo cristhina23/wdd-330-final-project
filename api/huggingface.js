@@ -18,7 +18,7 @@ Include the recipe title, preparation steps, nutritional information, and cookin
 
   try {
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/tu-modelo-aqui",
+      "https://api-inference.huggingface.co/models/gpt2",
       {
         method: "POST",
         headers: {
