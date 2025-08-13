@@ -3,14 +3,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Only POST requests allowed" });
   }
 
-  // Verificar si el token está disponible en las variables de entorno
-  if (!process.env.HF_TOKEN) {
-    console.error("HF_TOKEN is not defined in environment variables.");
-    return res.status(500).json({ error: "Server configuration error: HF_TOKEN missing." });
-  }
-
-  console.log("HF_TOKEN: ✅ Token loaded");
-
   const { ingredients } = req.body;
 
   if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
@@ -39,11 +31,10 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    console.log("Hugging Face API data:", data);
-    return res.status(200).json(data);
+    res.status(200).json(data);
 
   } catch (error) {
     console.error("Fetch to Hugging Face failed:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
