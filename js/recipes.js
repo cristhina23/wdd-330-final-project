@@ -56,26 +56,35 @@ async function getRecipeFromAI(ingredients) {
 }
 
 // Botón para generar la receta
-getRecipeBtn.addEventListener("click", () => {
-  if (ingredients.length < 3) { // ← mínimo 3 ingredientes
+getRecipeBtn.addEventListener("click", (e) => {
+  e.preventDefault(); // Esto previene submit o recarga en caso de error
+
+  if (ingredients.length < 3) {
     alert("Please add at least 3 ingredients before generating a recipe!");
     return;
   }
 
-  // Mostrar mensaje de carga
   getRecipeBtn.textContent = "Generating...";
   getRecipeBtn.disabled = true;
 
-  getRecipeFromAI(ingredients).then(data => {
-    console.log("AI Response:", data);
+  getRecipeFromAI(ingredients)
+    .then(data => {
+      console.log("AI Response:", data);
 
-    if (Array.isArray(data) && data[0]?.generated_text) {
-      alert(data[0].generated_text);
-    } else {
-      alert("No recipe generated. Please try again.");
-    }
-  }).finally(() => {
-    getRecipeBtn.textContent = "Get a recipe";
-    getRecipeBtn.disabled = false;
-  });
+      if (Array.isArray(data) && data[0]?.generated_text) {
+        alert(data[0].generated_text);
+      } else {
+        alert("No recipe generated. Please try again.");
+      }
+    })
+    .catch(error => {
+      console.error("Error generating recipe:", error);
+      alert("Error generating recipe. Try again later.");
+    })
+    .finally(() => {
+      getRecipeBtn.textContent = "Get a recipe";
+      getRecipeBtn.disabled = false;
+    });
 });
+
+
