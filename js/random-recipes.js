@@ -1,65 +1,64 @@
-
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("randomRecipes"); 
 
   if (!container) return; 
 
- 
-  const savedRecipe = localStorage.getItem("lastRandomRecipe");
-  if (savedRecipe) {
-    displayRecipe(JSON.parse(savedRecipe), container);
+  // Check LocalStorage
+  const savedRecipes = localStorage.getItem("lastRandomRecipes");
+  if (savedRecipes) {
+    displayRecipes(JSON.parse(savedRecipes), container);
   } else {
-    await loadRandomRecipe(container);
+    await loadRandomRecipes(container);
   }
 
-
+  // Reload button
   const reloadBtn = document.createElement("button");
-  reloadBtn.textContent = "Get Another Recipe";
+  reloadBtn.textContent = "Get Another Set";
   reloadBtn.className = "btn btn-secondary";
   reloadBtn.addEventListener("click", async () => {
-    await loadRandomRecipe(container, true);
+    await loadRandomRecipes(container, true);
   });
 
   container.parentElement.appendChild(reloadBtn);
 });
 
-
-async function loadRandomRecipe(container, forceReload = false) {
+async function loadRandomRecipes(container, forceReload = false) {
   try {
     if (!forceReload) {
-      const saved = localStorage.getItem("lastRandomRecipe");
+      const saved = localStorage.getItem("lastRandomRecipes");
       if (saved) {
-        displayRecipe(JSON.parse(saved), container);
+        displayRecipes(JSON.parse(saved), container);
         return;
       }
     }
 
-    const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
-    const data = await response.json();
+    // Fetch 3 random recipes in parallel
+    const requests = [1, 2, 3].map(() =>
+      fetch("https://www.themealdb.com/api/json/v1/1/random.php").then(res => res.json())
+    );
 
-    if (!data.meals || data.meals.length === 0) {
-      container.innerHTML = "<p>No recipe found.</p>";
-      return;
-    }
+    const results = await Promise.all(requests);
+    const recipes = results.map(r => r.meals[0]);
 
-    const recipe = data.meals[0];
-    localStorage.setItem("lastRandomRecipe", JSON.stringify(recipe));
-    displayRecipe(recipe, container);
+    // Save to LocalStorage
+    localStorage.setItem("lastRandomRecipes", JSON.stringify(recipes));
+
+    // Display
+    displayRecipes(recipes, container);
 
   } catch (error) {
-    console.error("Error loading random recipe:", error);
-    container.innerHTML = "<p>Error loading recipe.</p>";
+    console.error("Error loading random recipes:", error);
+    container.innerHTML = "<p>Error loading recipes.</p>";
   }
 }
 
-
-function displayRecipe(recipe, container) {
-  container.innerHTML = `
+function displayRecipes(recipes, container) {
+  container.innerHTML = recipes.map(recipe => `
     <div class="recipe-card">
       <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
       <h3>${recipe.strMeal}</h3>
       <p>📍 ${recipe.strArea} | 🍽 ${recipe.strCategory}</p>
       <a class="btn btn-primary" href="recipe.html?id=${recipe.idMeal}">View Recipe</a>
     </div>
-  `;
+  `).join("");
 }
