@@ -392,7 +392,9 @@ input[type="email"] {
   margin-bottom: 4rem;
 }
 
-.search-section {
+.search-section,
+#random-picks {
+  display: flex;
   flex-direction: column;
 }
 .search-section,
