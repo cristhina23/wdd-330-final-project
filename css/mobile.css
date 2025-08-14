@@ -87,6 +87,9 @@
   .bottom {
     position: relative;
   }
+  .user-menu {
+    display: none;
+  }
 
   .menu-activador {
     position: absolute;
