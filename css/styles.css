@@ -392,16 +392,16 @@ input[type="email"] {
   margin-bottom: 4rem;
 }
 
-.search-section,
+
 #random-picks {
   display: flex;
   flex-direction: column;
-}
-.search-section,
-#random-picks {
   padding: 2rem 1rem;
   background: #fafafa;
+  margin: 2rem auto;
 }
+
+
 
 .search-section h2,
 #random-picks h2 {
