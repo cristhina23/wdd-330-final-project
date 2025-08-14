@@ -32,6 +32,7 @@ onAuthStateChanged(auth, async (user) => {
           <img src="${recipe.image}" alt="${recipe.title}" />
           <h3>${recipe.title}</h3>
           <p>${recipe.category || ""} ${recipe.area ? " - " + recipe.area : ""}</p>
+          <div class="delete-icon"><ion-icon name="trash"></ion-icon></div>
           ${mealId
             ? `<a class="btn btn-primary" href="recipe.html?id=${mealId}">View Recipe</a>`
             : `<button class="btn" disabled>No ID</button>`
