@@ -695,7 +695,7 @@ input[type="email"] {
 .footer-section.contact {
   align-items: flex-start;
   row-gap: 20px;
-  width: 40%;
+  width: 60%;
   color: var(--color-background);
 
 }
