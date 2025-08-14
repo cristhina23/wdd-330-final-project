@@ -657,6 +657,7 @@ input[type="email"] {
   column-gap: 20px;
   margin-bottom: 20px;
   justify-content: space-between;
+  width: 90%;
 }
 .footer-top .footer-section {
   width: 25%;
