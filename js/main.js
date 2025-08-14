@@ -1,22 +1,36 @@
 import app from "./firebase.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 const auth = getAuth(app);
 
-const userPhotoImg = document.getElementById("userPhoto"); 
+const userAvatar = document.getElementById("userAvatar");
+const userDropdown = document.getElementById("userDropdown");
+const logoutBtn = document.getElementById("logoutBtn");
+
+
+userAvatar.addEventListener("click", () => {
+  userDropdown.classList.toggle("show");
+});
+
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".user-menu")) {
+    userDropdown.classList.remove("show");
+  }
+});
+
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    if (user.photoURL) {
-      userPhotoImg.src = user.photoURL;
-      userPhotoImg.alt = user.displayName || "User profile photo";
-      userPhotoImg.style.borderRadius = "50%"; 
-    } else {
-      userPhotoImg.src = "ruta/a/tu/icono-usuario.svg"; 
-      userPhotoImg.alt = "User icon";
-    }
+    userAvatar.src = user.photoURL || "images/user-icon.png";
   } else {
-    userPhotoImg.src = "ruta/a/tu/icono-default.svg";
-    userPhotoImg.alt = "Default icon";
+    userAvatar.src = "images/user-icon.png";
   }
+});
+
+
+logoutBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await signOut(auth);
+  window.location.href = "index.html";
 });
