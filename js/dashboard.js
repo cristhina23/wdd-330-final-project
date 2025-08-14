@@ -1,6 +1,8 @@
 import app from "./firebase.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getFirestore, collection, query, where, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import alert from "./alert.js"
+import aletr from "./alert.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -18,7 +20,7 @@ onAuthStateChanged(auth, async (user) => {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-      savedRecipesContainer.innerHTML = "<p>No tienes recetas guardadas todavía.</p>";
+      savedRecipesContainer.innerHTML = "<p>There are no saved recipes.</p>";
       return;
     }
 
@@ -41,7 +43,7 @@ onAuthStateChanged(auth, async (user) => {
       `;
     });
 
-    // Activar borrado
+    
     document.querySelectorAll(".delete-icon").forEach(icon => {
       icon.addEventListener("click", async (e) => {
         const card = e.target.closest(".recipe-card");
@@ -49,13 +51,14 @@ onAuthStateChanged(auth, async (user) => {
 
         if (!docId) return;
 
-        if (confirm("¿Seguro que quieres eliminar esta receta?")) {
+        if (confirm("Are you sure you want to delete this recipe?")) {
           try {
             await deleteDoc(doc(db, "recipes", docId));
             card.remove();
-            console.log("Receta eliminada correctamente.");
+
+            alert("Recipe deleted successfully.", "success");
           } catch (error) {
-            console.error("Error al borrar receta:", error);
+            aletr("Error deleting recipe.", "error");
           }
         }
       });
