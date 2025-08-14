@@ -1,16 +1,39 @@
-// js/random-recipe.js
-document.addEventListener("DOMContentLoaded", async () => {
-  const container = document.getElementById("randomRecipe");
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById("randomRecipes"); 
+
+  if (!container) return; 
+
+ 
+  const savedRecipe = localStorage.getItem("lastRandomRecipe");
+  if (savedRecipe) {
+    displayRecipe(JSON.parse(savedRecipe), container);
+  } else {
+    await loadRandomRecipe(container);
+  }
+
+
+  const reloadBtn = document.createElement("button");
+  reloadBtn.textContent = "Get Another Recipe";
+  reloadBtn.className = "btn btn-secondary";
+  reloadBtn.addEventListener("click", async () => {
+    await loadRandomRecipe(container, true);
+  });
+
+  container.parentElement.appendChild(reloadBtn);
+});
+
+
+async function loadRandomRecipe(container, forceReload = false) {
   try {
-    // Check if we have a saved recipe in LocalStorage
-    const savedRecipe = localStorage.getItem("lastRandomRecipe");
-    if (savedRecipe) {
-      displayRecipe(JSON.parse(savedRecipe), container);
-      return; // If we have one, don't fetch immediately
+    if (!forceReload) {
+      const saved = localStorage.getItem("lastRandomRecipe");
+      if (saved) {
+        displayRecipe(JSON.parse(saved), container);
+        return;
+      }
     }
 
-    // Fetch a random recipe from TheMealDB
     const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
     const data = await response.json();
 
@@ -20,22 +43,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const recipe = data.meals[0];
-
-    // Save to LocalStorage
     localStorage.setItem("lastRandomRecipe", JSON.stringify(recipe));
-
-    // Display recipe
     displayRecipe(recipe, container);
 
   } catch (error) {
     console.error("Error loading random recipe:", error);
     container.innerHTML = "<p>Error loading recipe.</p>";
   }
-});
+}
 
-/**
- * Display recipe in the container
- */
+
 function displayRecipe(recipe, container) {
   container.innerHTML = `
     <div class="recipe-card">
