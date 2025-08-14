@@ -7,26 +7,27 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import Alert from './alert.js';
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// Email/Password Sign Up
+
 function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
 }
 
-// Email/Password Sign In
+
 function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-// Google Sign In (for both sign up and sign in)
+
 function signInWithGoogle() {
   return signInWithPopup(auth, provider);
 }
 
-// Attach event listeners only if buttons exist on the page
+
 const btnSignUp = document.getElementById('btn-signup');
 if (btnSignUp) {
   btnSignUp.addEventListener('click', (e) => {
@@ -50,10 +51,11 @@ if (btnSignIn) {
     const password = document.getElementById('password').value;
     signIn(email, password)
       .then(userCredential => {
+        Alert("User logged in successfully.", "success");
         console.log('User logged in:', userCredential.user);
         window.location.href = 'dashboard.html';
       })
-      .catch(error => alert(error.message));
+      .catch(error => Alert(error.message, "error"));
   });
 }
 
@@ -63,19 +65,19 @@ if (btnGoogle) {
     e.preventDefault();
     signInWithGoogle()
       .then(result => {
+        Alert("User logged in successfully.", "success");
         console.log('Google user logged in:', result.user);
         window.location.href = 'dashboard.html';
       })
-      .catch(error => alert(error.message));
+      .catch(error => Alert(error.message, "error"));
   });
 }
 
-// Listen for auth state changes if you want to handle automatic redirects or UI changes
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log('User is logged in:', user);
-    // Optional: redirect if user is already logged in
-    // window.location.href = 'dashboard.html';
+    
   } else {
     console.log('No user logged in');
   }

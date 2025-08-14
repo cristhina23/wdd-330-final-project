@@ -1,6 +1,7 @@
 import app from "./firebase.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import Alert from "./alert.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
-  // Variables que necesitaremos fuera del try
+  
   let recipeData = null;
   let ingredients = [];
   let steps = [];
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
-    // Instrucciones (con guard)
+   
     const raw = recipe.strInstructions || "";
     steps = raw
       .split(/\r?\n|\. /)
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.innerHTML = "<p>Error loading recipe details.</p>";
   }
 
-  // Click en bookmark
+  
   const icon = document.getElementById("bookmark-icon") || bookmarkIcon;
   if (icon) {
     icon.addEventListener("click", () => {
@@ -86,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
           await addDoc(collection(db, "recipes"), {
             userId: user.uid,
-            // GUARDA SIEMPRE EL idMeal ORIGINAL
+            
             idMeal: recipeData?.idMeal || id,
             title: recipeData?.strMeal || "",
             image: recipeData?.strMealThumb || "",
@@ -96,10 +97,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             instructions: recipeData?.strInstructions || "",
             createdAt: new Date()
           });
-          console.log("Receta guardada correctamente.");
+          Alert("Recipe saved successfully.", "success");
           window.location.href = "dashboard.html";
         } catch (error) {
-          console.error("Error guardando receta:", error);
+          Alert("Error saving recipe:", "error");
         }
       });
     });

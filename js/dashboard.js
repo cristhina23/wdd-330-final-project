@@ -1,8 +1,8 @@
 import app from "./firebase.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getFirestore, collection, query, where, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import alert from "./alert.js"
-import aletr from "./alert.js";
+import Alert from "./alert.js"
+
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -56,9 +56,9 @@ onAuthStateChanged(auth, async (user) => {
             await deleteDoc(doc(db, "recipes", docId));
             card.remove();
 
-            alert("Recipe deleted successfully.", "success");
+            Alert("Recipe deleted successfully.", "success");
           } catch (error) {
-            aletr("Error deleting recipe.", "error");
+            Alert("Error deleting recipe.", "error");
           }
         }
       });
