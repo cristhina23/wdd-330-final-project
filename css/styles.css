@@ -263,6 +263,7 @@ section {
   text-align: center;
   flex-direction: column;
   height: auto;
+  animation: fadeInUp 0.8s ease-in-out;
 }
 
 
