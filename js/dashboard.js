@@ -1,6 +1,6 @@
 import app from "./firebase.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -23,12 +23,12 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     savedRecipesContainer.innerHTML = "";
-    querySnapshot.forEach((doc) => {
-      const recipe = doc.data();
-      const mealId = recipe.idMeal; // ← ahora siempre guardamos esto
+    querySnapshot.forEach((docSnap) => {
+      const recipe = docSnap.data();
+      const mealId = recipe.idMeal;
 
       savedRecipesContainer.innerHTML += `
-        <div class="recipe-card">
+        <div class="recipe-card" data-doc-id="${docSnap.id}">
           <img src="${recipe.image}" alt="${recipe.title}" />
           <h3>${recipe.title}</h3>
           <p>${recipe.category || ""} ${recipe.area ? " - " + recipe.area : ""}</p>
@@ -40,6 +40,27 @@ onAuthStateChanged(auth, async (user) => {
         </div>
       `;
     });
+
+    // Activar borrado
+    document.querySelectorAll(".delete-icon").forEach(icon => {
+      icon.addEventListener("click", async (e) => {
+        const card = e.target.closest(".recipe-card");
+        const docId = card.dataset.docId;
+
+        if (!docId) return;
+
+        if (confirm("¿Seguro que quieres eliminar esta receta?")) {
+          try {
+            await deleteDoc(doc(db, "recipes", docId));
+            card.remove();
+            console.log("Receta eliminada correctamente.");
+          } catch (error) {
+            console.error("Error al borrar receta:", error);
+          }
+        }
+      });
+    });
+
   } else {
     window.location.href = "login.html";
   }
