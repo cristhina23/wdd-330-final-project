@@ -608,7 +608,7 @@ input[type="email"] {
   justify-content: center;
   align-items: center;
   row-gap: 20px;
-  color: var(--text-white);
+  color: var(--color-background);
 }
 .footer-top .logo img {
   width: 80px;
@@ -618,9 +618,8 @@ input[type="email"] {
 
 .footer-top p {
   font-size: 0.9em;
-  font-family: var(--body-font);
   letter-spacing: 1px;
-  color: var(--text-white);
+  color: var(--color-background);
 }
 .footer-top .social-icons {
   width: 100%;
@@ -631,7 +630,7 @@ input[type="email"] {
 }
 .footer-top .footer-section .social-icons a {
   font-size: 2em;
-  color: var(--main-color);
+  color: var(--color-background);
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -639,14 +638,13 @@ input[type="email"] {
 }
 
 .footer-top .footer-section .social-icons a:hover {
-  color: var(--text-white);
+  color: var(--color-background);
   transform: scale(1.2);
 }
 
 .footer-top .footer-section h4 {
   font-size: 1.4em;
-  font-family: var(--heading-font);
-  color: var(--text-white);
+  color: var(--color-background);
   margin-bottom: 20px;
 }
 
@@ -662,31 +660,29 @@ input[type="email"] {
 }
 .footer-top .footer-section li {
   margin-bottom: 10px;
-  color: var(--text-white);
+  color: var(--color-background);
 }
 .footer-top .footer-section a {
-  color: var(--text-white);
+  color: var(--color-background);
   font-size: 0.9em;
-  font-family: var(--body-font);
   letter-spacing: 1px;
   transition: all 0.3s ease;
 }
 .footer-top .footer-section a:hover {
-  color: var(--main-color);
+  color: var(--color-accent-mediun);
   transform: scale(1.2);
 }
 
 .footer-section.contact {
   align-items: flex-start;
   row-gap: 20px;
-  color: var(--text-white);
-  font-family: var(--body-font);
+  color: var(--color-background);
+
 }
 
 .footer-section.contact h4 {
   font-size: 1.4em;
-  font-family: var(--heading-font);
-  color: var(--text-white);
+  color: var(--color-background);
   margin-bottom: 20px;
 }
 
@@ -698,7 +694,7 @@ input[type="email"] {
 }
 
 .contact-item i {
-  color: var(--main-color);
+  color: var(--color-accent-mediun);
   font-size: 1.2em;
   margin-top: 4px;
   min-width: 20px;
@@ -706,7 +702,7 @@ input[type="email"] {
 
 .contact-item span {
   font-weight: bold;
-  color: var(--text-white);
+  color: var(--color-background);
   display: block;
   margin-bottom: 2px;
 }
@@ -715,7 +711,7 @@ input[type="email"] {
   margin: 0;
   font-size: 0.95em;
   line-height: 1.4;
-  color: var(--text-white);
+  color: var(--color-background);
 }
 
 .footer-bottom {
@@ -731,8 +727,7 @@ input[type="email"] {
 
 .footer-bottom .bottom p,
 .footer-bottom > p {
-  color: var(--text-white);
-  font-family: var(--body-font);
+  color: var(--color-background);
   font-size: 0.8em;
   letter-spacing: 1px;
   margin: 4px 0;
