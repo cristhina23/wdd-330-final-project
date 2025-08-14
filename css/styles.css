@@ -290,7 +290,7 @@ nav {
 section {
   height: calc(100vh - 122px); 
   display: flex; 
-  flex-direction: column;
+
   align-items: center; 
   justify-content: center;
 }
@@ -392,7 +392,9 @@ input[type="email"] {
   margin-bottom: 4rem;
 }
 
-
+.search-section {
+  flex-direction: column;
+}
 .search-section,
 #random-picks {
   padding: 2rem 1rem;
@@ -407,7 +409,7 @@ input[type="email"] {
   color: #333;
 }
 
-/* === FORM STYLING === */
+
 .search-section form {
   display: flex;
   justify-content: center;
