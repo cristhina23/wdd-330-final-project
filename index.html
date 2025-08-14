@@ -52,9 +52,9 @@
     <header class="header">
       <a href="/index.html" class="logo-link">
         <div class="logo">
-        <img src="images/logo.png" alt="SmartCook Logo" />
-        <span>SmartCook</span>
-      </div>
+          <img src="images/logo.png" alt="SmartCook Logo" />
+          <span>SmartCook</span>
+        </div>
       </a>
 
       <input type="checkbox" id="lanzador" />
@@ -99,29 +99,15 @@
       </section>
 
       <section id="ingredients" class="ingredients-section">
-        <h2>What’s in your kitchen?</h2>
-        <p>Enter one ingredient at a time (e.g., rice):</p>
+        <h2>What do you feel like eating today?</h2>
+        <p>Enter one ingredient (e.g., rice):</p>
 
-        <form action="" id="ingredientForm">
+        <form id="ingredientForm">
           <input type="text" id="ingredientInput" placeholder="Enter ingredient..." />
-          <button class="btn" id="addIngredient">+ Add ingredient</button>
+          <button class="btn btn-primary" type="button">Search Recipes</button>
         </form>
-        <div class="ingredients-list" id="ingredientsListContainer">
-          <div class="ingredients-list-container">
-            <h3>Ingredients on Hand:</h3>
-          <ul id="ingredientList"></ul>
-          </div>
 
-          <div class="recipe-box">
-            <div class="recipe-box-text">
-              <h4>Ready for a recipe?</h4>
-              <p>Generate a recipe based on your ingredients</p>
-            </div>
-            <div class="recipe-box-button">
-              <button id="getRecipe" class=" btn-secondary" type="button">Get a recipe</button>
-            </div>
-          </div>
-        </div>
+        <div id="ingredientResults" class="recipes-container"></div>
       </section>
 
       <section class="top-recipes">
@@ -132,99 +118,85 @@
       </section>
 
       <section class="newsletter">
-          <div class="newsletter-container">
-            <div class="newsletter-text">
-              <h3>Newsletter</h3>
-              <h2>Subscribe to our newsletter</h2>
-              <p
-                >Receive exclusive offers, tips, and updates
-                straight to your inbox.</p
-              >
-            </div>
-            <form
-              class="newsletter-form"
-              onsubmit="return validateEmail(event)"
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                required
-              />
-             <button class="btn btn-primary" aria-label="Subscribe to our newsletter">SUSCRIBE</button>
-              <p id="email-error" class="error-message"></p>
-            </form>
+        <div class="newsletter-container">
+          <div class="newsletter-text">
+            <h3>Newsletter</h3>
+            <h2>Subscribe to our newsletter</h2>
+            <p>Receive exclusive offers, tips, and updates straight to your inbox.</p>
           </div>
-        </section>
+          <form class="newsletter-form" onsubmit="return validateEmail(event)">
+            <input type="email" placeholder="Enter your email" required />
+            <button class="btn btn-primary" aria-label="Subscribe to our newsletter">SUSCRIBE</button>
+            <p id="email-error" class="error-message"></p>
+          </form>
+        </div>
+      </section>
     </main>
 
     <!--  Footer -->
     <footer class="footer">
-      
-        <div class="footer-top">
-          <div class="footer-section ">
-            <div class="logo">
-              <a href="index.html"
-                ><img
-                  src="images/logo.png"
-                  alt="Perfect Diet Logo" loading="lazy" 
-              /></a>
-              <p
-                >Smart Cooking. Better Eating. Less Waste.</p
-              >
-            </div>
-            <div class="social-icons">
-              <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-              <a href="#"><ion-icon name="logo-github"></ion-icon></a>
-              <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-              <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
-            </div>
+      <div class="footer-top">
+        <div class="footer-section">
+          <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt="Perfect Diet Logo" loading="lazy" /></a>
+            <p>Smart Cooking. Better Eating. Less Waste.</p>
           </div>
-
-          <div class="footer-section">
-            <h4>Explore</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="#top-recipes">Top Recipes</a></li>
-              <li><a href="#newsletter">Newsletter</a></li>
-              <li><a href="login.html">Login</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section contact">
-            <h4>Contact Info</h4>
-
-            <div class="contact-item">
-             
-              <div>
-                <span>Our location:</span>
-                <p>Goldschmidtstraße 13, 04103 Leipzig</p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              
-              <div>
-                <span>Phones:</span>
-                <p>+49078-039-23-11</p>
-                <p>+49078-033-55-60</p>
-              </div>
-            </div>
+          <div class="social-icons">
+            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-github"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+            <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <div class="bottom">
-            <p>WDD 330 Final Project </p>
-            <p>
-              &copy;2025 all rights reserved ✨ Viszelle
-              Chacon ✨ Venezuela</p
-            >
-            <br />
-          </div>
-          
-          <p>Demostration Video <a href="https://www.loom.com/share/216ed8e9c141437f93f5559a2fc90e7e?sid=ef99edfe-85be-4a9a-a275-8177fd395674" target="_blank" class="link">Click Here</a></p>
+        <div class="footer-section">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#top-recipes">Top Recipes</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
         </div>
-      </footer>
+
+        <div class="footer-section contact">
+          <h4>Contact Info</h4>
+
+          <div class="contact-item">
+            <div>
+              <span>Our location:</span>
+              <p>Goldschmidtstraße 13, 04103 Leipzig</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div>
+              <span>Phones:</span>
+              <p>+49078-039-23-11</p>
+              <p>+49078-033-55-60</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="bottom">
+          <p>WDD 330 Final Project </p>
+          <p> &copy;2025 all rights reserved ✨ Viszelle Chacon ✨ Venezuela</p>
+          <br />
+        </div>
+
+        <p
+          >Demostration Video
+          <a
+            href="https://www.loom.com/share/216ed8e9c141437f93f5559a2fc90e7e?sid=ef99edfe-85be-4a9a-a275-8177fd395674"
+            target="_blank"
+            class="link"
+            >Click Here</a
+          ></p
+        >
+      </div>
+    </footer>
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
