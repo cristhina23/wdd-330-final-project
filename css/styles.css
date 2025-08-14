@@ -743,7 +743,7 @@ input[type="email"] {
 
 .footer-section.contact h4 {
   font-size: 1.4em;
-  color: var(--color-background);
+  color: var(--color-accent-mediun);
   margin-bottom: 20px;
 }
 
