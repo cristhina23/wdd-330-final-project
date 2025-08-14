@@ -23,6 +23,7 @@ body {
   color: var(--color-text-dark);
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 h3 {
@@ -661,7 +662,7 @@ input[type="email"] {
 
 .footer-top .footer-section h4 {
   font-size: 1.4em;
-  color: var(--color-background);
+  color: var(--color-accent-mediun);
   margin-bottom: 20px;
 }
 
