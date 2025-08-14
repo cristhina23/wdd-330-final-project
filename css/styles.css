@@ -402,6 +402,7 @@ input[type="email"] {
   padding: 2rem 1rem;
   background: #fafafa;
   margin: 4rem auto;
+  height: auto;
 }
 
 
@@ -414,28 +415,18 @@ input[type="email"] {
   color: #333;
 }
 
-
-.search-section form {
+#random-picks {
   display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  background: #fafafa;
+  margin: 4rem auto;
+  height: auto;
 }
 
-.search-section input[type="text"] {
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  width: 250px;
-  transition: border-color 0.3s ease;
+#random-picks button {
+  margin: 2rem auto;
 }
-
-.search-section input[type="text"]:focus {
-  border-color: #0077b6;
-  outline: none;
-}
-
 
 
 
