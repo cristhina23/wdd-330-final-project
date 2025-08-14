@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("randomRecipes"); 
-
   if (!container) return; 
 
-  // Check LocalStorage
+  // Load initial recipes (from localStorage or fetch)
   const savedRecipes = localStorage.getItem("lastRandomRecipes");
   if (savedRecipes) {
     displayRecipes(JSON.parse(savedRecipes), container);
@@ -11,19 +10,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadRandomRecipes(container);
   }
 
-  // Reload button
+  // Create and insert reload button after the container
   const reloadBtn = document.createElement("button");
   reloadBtn.textContent = "Get Another Set";
-  reloadBtn.className = "btn btn-secondary";
+  reloadBtn.className = "btn btn-secondary mt-3";
   reloadBtn.addEventListener("click", async () => {
     await loadRandomRecipes(container, true);
   });
 
-  container.parentElement.appendChild(reloadBtn);
+  container.insertAdjacentElement("afterend", reloadBtn);
 });
 
 async function loadRandomRecipes(container, forceReload = false) {
   try {
+    // Only use localStorage if not forcing reload
     if (!forceReload) {
       const saved = localStorage.getItem("lastRandomRecipes");
       if (saved) {
