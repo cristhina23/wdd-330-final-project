@@ -11,7 +11,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    container.innerHTML = data.recipes
+    
+    let recipes = data.recipes;
+    const count = Math.floor(recipes.length / 3) * 3;
+    recipes = recipes.slice(0, count);
+
+    container.innerHTML = recipes
       .map(
         (recipe) => `
         <div class="recipe-card">
@@ -23,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       `
       )
       .join("");
+
   } catch (error) {
     console.error("Error loading recipes:", error);
     container.innerHTML = "<p>Error loading recipes.</p>";

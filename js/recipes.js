@@ -20,7 +20,12 @@ document.getElementById("ingredientForm").addEventListener("submit", async (e) =
       return;
     }
 
-    resultsContainer.innerHTML = data.meals
+   
+    let meals = data.meals;
+    const count = Math.floor(meals.length / 3) * 3;
+    meals = meals.slice(0, count);
+
+    resultsContainer.innerHTML = meals
       .map(
         (meal) => `
         <div class="recipe-card">
