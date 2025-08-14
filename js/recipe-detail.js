@@ -7,10 +7,14 @@ const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("recipeDetail");
+  const bookmarkIcon = document.querySelector(".bookmark-icon");
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
-  let recipeData = null; // Guardar receta para luego almacenarla
-  let ingredients = [];  // Declarar aquí para usar después
+
+  // Variables que necesitaremos fuera del try
+  let recipeData = null;
+  let ingredients = [];
+  let steps = [];
 
   if (!id) {
     container.innerHTML = "<p>Recipe ID is missing.</p>";
@@ -29,29 +33,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     const recipe = data.meals[0];
     recipeData = recipe;
 
-    // Extraer ingredientes y medidas
+    // Ingredientes
     for (let i = 1; i <= 20; i++) {
-      const ingredient = recipe[`strIngredient${i}`];
-      const measure = recipe[`strMeasure${i}`];
-      if (ingredient && ingredient.trim() !== "") {
-        ingredients.push(`${measure ? measure : ""} ${ingredient}`.trim());
+      const ing = recipe[`strIngredient${i}`];
+      const mea = recipe[`strMeasure${i}`];
+      if (ing && ing.trim() !== "") {
+        ingredients.push(`${mea ? mea : ""} ${ing}`.trim());
       }
     }
 
-    // Formatear instrucciones en pasos
-    const steps = recipe.strInstructions
+    // Instrucciones (con guard)
+    const raw = recipe.strInstructions || "";
+    steps = raw
       .split(/\r?\n|\. /)
-      .map(step => step.trim())
-      .filter(step => step.length > 0);
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
 
     container.innerHTML = `
-      <div class="bookmark-icon" id="bookmark-icon">
-        <ion-icon name="bookmark"></ion-icon>
-      </div>
       <h2>${recipe.strMeal}</h2>
       <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" />
-      <p><span>Category:</span> ${recipe.strCategory}</p>
-      <p><span>Area:</span> ${recipe.strArea}</p>
+      <p><span>Category:</span> ${recipe.strCategory || "-"}</p>
+      <p><span>Area:</span> ${recipe.strArea || "-"}</p>
 
       <h3>Ingredients</h3>
       <ul>
@@ -60,13 +62,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       <h3>Instructions</h3>
       <ol>
-        ${steps.map(step => `<li>${step}.</li>`).join("")}
+        ${steps.map(step => `<li>${step.endsWith(".") ? step : step + "."}</li>`).join("")}
       </ol>
     `;
+  } catch (error) {
+    console.error("Error loading recipe:", error);
+    container.innerHTML = "<p>Error loading recipe details.</p>";
+  }
 
-    // Ahora que el HTML está en el DOM, seleccionamos el ícono
-    const bookmarkIcon = document.querySelector(".bookmark-icon");
-    bookmarkIcon.addEventListener("click", () => {
+  // Click en bookmark
+  const icon = document.getElementById("bookmark-icon") || bookmarkIcon;
+  if (icon) {
+    icon.addEventListener("click", () => {
       onAuthStateChanged(auth, async (user) => {
         if (!user) {
           window.location.href = "login.html";
@@ -74,19 +81,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         try {
-          const docData = {
+          await addDoc(collection(db, "recipes"), {
             userId: user.uid,
-            title: recipeData.strMeal || null,
-            image: recipeData.strMealThumb || null,
-            category: recipeData.strCategory || null,
-            area: recipeData.strArea || null,
-            ingredients: ingredients.length ? ingredients : null,
-            instructions: recipeData.strInstructions || null,
+            // GUARDA SIEMPRE EL idMeal ORIGINAL
+            idMeal: recipeData?.idMeal || id,
+            title: recipeData?.strMeal || "",
+            image: recipeData?.strMealThumb || "",
+            category: recipeData?.strCategory || "",
+            area: recipeData?.strArea || "",
+            ingredients: ingredients,
+            instructions: recipeData?.strInstructions || "",
             createdAt: new Date()
-          };
-          console.log("Datos a guardar en Firestore:", docData);
-
-          await addDoc(collection(db, "recipes"), docData);
+          });
           console.log("Receta guardada correctamente.");
           window.location.href = "dashboard.html";
         } catch (error) {
@@ -94,9 +100,5 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
     });
-
-  } catch (error) {
-    console.error("Error loading recipe:", error);
-    container.innerHTML = "<p>Error loading recipe details.</p>";
   }
 });

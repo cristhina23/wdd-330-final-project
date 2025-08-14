@@ -11,11 +11,9 @@ const savedRecipesContainer = document.getElementById("savedRecipes");
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    
     userPhoto.src = user.photoURL || "images/default-avatar.png";
     userName.textContent = user.displayName || "Usuario";
 
-    
     const q = query(collection(db, "recipes"), where("userId", "==", user.uid));
     const querySnapshot = await getDocs(q);
 
@@ -27,17 +25,21 @@ onAuthStateChanged(auth, async (user) => {
     savedRecipesContainer.innerHTML = "";
     querySnapshot.forEach((doc) => {
       const recipe = doc.data();
+      const mealId = recipe.idMeal; // ← ahora siempre guardamos esto
+
       savedRecipesContainer.innerHTML += `
         <div class="recipe-card">
           <img src="${recipe.image}" alt="${recipe.title}" />
           <h3>${recipe.title}</h3>
-          <p>${recipe.category} - ${recipe.area}</p>
-          <a class="btn btn-primary" href="recipe.html?id=${recipe.id}">View Recipe</a>
+          <p>${recipe.category || ""} ${recipe.area ? " - " + recipe.area : ""}</p>
+          ${mealId
+            ? `<a class="btn btn-primary" href="recipe.html?id=${mealId}">View Recipe</a>`
+            : `<button class="btn" disabled>No ID</button>`
+          }
         </div>
       `;
     });
   } else {
-    
     window.location.href = "login.html";
   }
 });
