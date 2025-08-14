@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const recipe = data.meals[0];
     recipeData = recipe;
 
-    // Ingredientes
+ 
     for (let i = 1; i <= 20; i++) {
       const ing = recipe[`strIngredient${i}`];
       const mea = recipe[`strMeasure${i}`];
@@ -76,33 +76,46 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   
   const icon = document.getElementById("bookmark-icon") || bookmarkIcon;
-  if (icon) {
-    icon.addEventListener("click", () => {
-      onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-          window.location.href = "login.html";
-          return;
+
+if (icon) {
+  icon.addEventListener("click", () => {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const recipeToSave = {
+        userId: user.uid,
+        idMeal: recipeData?.idMeal || id,
+        title: recipeData?.strMeal || "",
+        image: recipeData?.strMealThumb || "",
+        category: recipeData?.strCategory || "",
+        area: recipeData?.strArea || "",
+        ingredients: ingredients,
+        instructions: recipeData?.strInstructions || "",
+        createdAt: new Date()
+      };
+
+      try {
+        
+        await addDoc(collection(db, "recipes"), recipeToSave);
+
+        
+        let localFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        if (!localFavorites.some(fav => fav.idMeal === recipeToSave.idMeal)) {
+          localFavorites.push(recipeToSave);
+          localStorage.setItem("favorites", JSON.stringify(localFavorites));
         }
 
-        try {
-          await addDoc(collection(db, "recipes"), {
-            userId: user.uid,
-            
-            idMeal: recipeData?.idMeal || id,
-            title: recipeData?.strMeal || "",
-            image: recipeData?.strMealThumb || "",
-            category: recipeData?.strCategory || "",
-            area: recipeData?.strArea || "",
-            ingredients: ingredients,
-            instructions: recipeData?.strInstructions || "",
-            createdAt: new Date()
-          });
-          Alert("Recipe saved successfully.", "success");
-          window.location.href = "dashboard.html";
-        } catch (error) {
-          Alert("Error saving recipe:", "error");
-        }
-      });
+        Alert("Recipe saved successfully.", "success");
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        Alert("Error saving recipe:", "error");
+      }
     });
-  }
+  });
+}
+
+
 });
