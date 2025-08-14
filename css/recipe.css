@@ -98,8 +98,8 @@ main {
 
 .delete-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  bottom: 100px;
+  right: 20px;
   font-size: 24px;
   color: var(--color-accent-mediun);
   cursor: pointer;
