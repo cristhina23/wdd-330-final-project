@@ -170,4 +170,9 @@
     align-items: center;
     text-align: center;
   }
+  .footer-section.contact {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
 }
