@@ -154,7 +154,9 @@
     padding: 1rem;
   }
   .newsletter-container {
-    flex-direction: column;
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
     align-items: center;
     text-align: center;
   }
